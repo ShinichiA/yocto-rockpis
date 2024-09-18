@@ -1,0 +1,18 @@
+cd ~
+mkdir yocto
+cd yocto
+git clone git://git.yoctoproject.org/poky -b dunfell
+cd poky
+git clone git://git.openembedded.org/meta-openembedded.git -b dunfell
+git clone https://github.com/radxa/meta-radxa.git -b dunfell
+git clone https://github.com/YoeDistro/meta-python2.git -b dunfell
+
+cd poky
+source oe-init-build-env
+cd ..
+cp meta-radxa/conf/bblayers.conf.sample build/conf/bblayers.conf
+cp meta-radxa/conf/local.conf.sample build/conf/local.conf
+
+# change local.conf
+MACHINE ?= "rockpi-s-rk3308" # uncomment this line
+PACKAGE_CLASSES ?= "package_deb" # use deb package
